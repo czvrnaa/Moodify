@@ -2,94 +2,69 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>Moodify - Rekomendacje muzyczne</title>
+  <title>Rekomendacje dla nastroju {{ mood.capitalize() }}</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       max-width: 700px;
       margin: 30px auto;
       padding: 0 20px;
-      background: #f5f5f5;
+      background: #121212;
+      color: #eee;
     }
     h1, h2 {
       text-align: center;
     }
-    form {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-    }
-    button {
-      background-color: #007bff;
-      border: none;
-      padding: 12px 20px;
-      font-size: 16px;
-      color: white;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
     ul {
-      list-style-type: none;
-      padding-left: 0;
+      list-style: none;
+      padding: 0;
     }
     li {
-      background: white;
-      margin-bottom: 10px;
-      padding: 12px 15px;
-      border-radius: 6px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      background: #222;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,255,100,0.2);
     }
     a {
-      color: #007bff;
+      color: #1db954;
       text-decoration: none;
+      font-weight: bold;
     }
     a:hover {
       text-decoration: underline;
     }
-    .error {
-      color: red;
+    .description {
+      margin-top: 5px;
+      font-style: italic;
+      color: #aaa;
+    }
+    .back-link {
+      display: block;
+      margin-top: 30px;
       text-align: center;
-      margin-top: 20px;
+      color: #1db954;
+      text-decoration: none;
       font-weight: bold;
+    }
+    .back-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <h1>Wybierz nastrój {{ emoji }}</h1>
-
-  <form method="POST" action="{{ url_for('mood') }}">
-    {% for key, val in moods.items() %}
-      <button type="submit" name="mood" value="{{ key }}">
-        {{ key.capitalize() }} {{ val.emoji }}
-      </button>
+  <h1>Nastrój: {{ mood.capitalize() }} {{ emoji }}</h1>
+  <h2>Rekomendacje piosenek:</h2>
+  <ul>
+    {% for song in recommendations %}
+      <li>
+        <strong>{{ song.artist }}</strong> – {{ song.name }}<br />
+        <span class="description">{{ song.description }}</span><br />
+        <a href="{{ song.youtube }}" target="_blank" rel="noopener noreferrer">▶️ Odsłuchaj na YouTube</a>
+      </li>
     {% endfor %}
-  </form>
-
-  {% if mood %}
-    <h2>Rekomendacje dla nastroju: "{{ mood.capitalize() }}" {{ emoji }}</h2>
-    <ul>
-      {% for song in recommendations %}
-        <li>
-          <strong>{{ song.artist }}</strong> – {{ song.name }} — 
-          <a href="{{ song.youtube }}" target="_blank" rel="noopener noreferrer">YouTube</a>
-          {% if song.description %}
-            <br><em>{{ song.description }}</em>
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>Wybierz nastrój powyżej, aby zobaczyć rekomendacje.</p>
-  {% endif %}
-
-  {% if error %}
-    <p class="error">{{ error }}</p>
-  {% endif %}
+  </ul>
+  <a href="/" class="back-link">← Wróć do wyboru nastroju</a>
 </body>
 </html>
+
