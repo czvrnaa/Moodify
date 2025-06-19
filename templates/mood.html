@@ -2,69 +2,98 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>Rekomendacje dla nastroju {{ mood.capitalize() }}</title>
+  <title>Moodify - Rekomendacje dla {{ mood.capitalize() }}</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      max-width: 700px;
-      margin: 30px auto;
-      padding: 0 20px;
-      background: #121212;
+      background-color: #121212;
       color: #eee;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      padding: 2rem;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    h1, h2 {
-      text-align: center;
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    h2 {
+      margin-top: 0;
+      margin-bottom: 2rem;
+      font-weight: 600;
     }
     ul {
       list-style: none;
       padding: 0;
+      max-width: 600px;
+      width: 100%;
     }
     li {
       background: #222;
-      margin-bottom: 15px;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,255,100,0.2);
+      margin-bottom: 1rem;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.7);
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
     }
-    a {
+    li strong {
+      font-size: 1.2rem;
       color: #1db954;
-      text-decoration: none;
-      font-weight: bold;
     }
-    a:hover {
+    li a {
+      color: #1db954;
+      font-weight: 600;
+      text-decoration: none;
+      align-self: flex-start;
+      margin-top: 0.5rem;
+      transition: text-decoration 0.2s ease;
+    }
+    li a:hover {
       text-decoration: underline;
     }
     .description {
-      margin-top: 5px;
       font-style: italic;
-      color: #aaa;
+      color: #ccc;
+      font-size: 0.9rem;
     }
-    .back-link {
-      display: block;
-      margin-top: 30px;
-      text-align: center;
-      color: #1db954;
-      text-decoration: none;
-      font-weight: bold;
+    button.back-btn {
+      margin-top: 2rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #1db954;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
-    .back-link:hover {
-      text-decoration: underline;
+    button.back-btn:hover {
+      background-color: #17a44c;
     }
   </style>
 </head>
 <body>
-  <h1>Nastrój: {{ mood.capitalize() }} {{ emoji }}</h1>
-  <h2>Rekomendacje piosenek:</h2>
+  <h1>Moodify 🎵</h1>
+  <h2>Twój nastrój: {{ mood.capitalize() }} {{ emoji }}</h2>
+
   <ul>
     {% for song in recommendations %}
       <li>
-        <strong>{{ song.artist }}</strong> – {{ song.name }}<br />
-        <span class="description">{{ song.description }}</span><br />
-        <a href="{{ song.youtube }}" target="_blank" rel="noopener noreferrer">▶️ Odsłuchaj na YouTube</a>
+        <strong>{{ song.artist }}</strong> - {{ song.name }}
+        <div class="description">{{ song.description }}</div>
+        <a href="{{ song.youtube }}" target="_blank" rel="noopener noreferrer" aria-label="Odsłuchaj {{ song.name }} od {{ song.artist }}">▶️ Odsłuchaj</a>
       </li>
     {% endfor %}
   </ul>
-  <a href="/" class="back-link">← Wróć do wyboru nastroju</a>
+
+  <form action="{{ url_for('mood') }}" method="GET">
+    <button class="back-btn" type="submit">Wybierz inny nastrój</button>
+  </form>
 </body>
 </html>
+
 

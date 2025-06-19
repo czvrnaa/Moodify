@@ -58,8 +58,9 @@ def mood():
             )
     return render_template("index.html", moods=mood_settings)
 
+import os
+
 if __name__ == "__main__":
-    import os
-    port = int(os.environ.get("PORT", 5000))  # domyślnie 5000, ale Render ustawia PORT
-    app.run(host="0.0.0.0", port=port, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
 
