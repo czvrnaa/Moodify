@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>Moodify - Rekomendacje</title>
+  <title>Moodify - rekomendacje muzyczne</title>
   <style>
     body {
       background-color: #121212;
@@ -12,14 +12,38 @@
       text-align: center;
       min-height: 100vh;
       margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    h1 {
-      margin-bottom: 1rem;
+    form {
+      margin-bottom: 2rem;
+    }
+    select, button {
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+      margin: 0.5rem 0.5rem 0.5rem 0;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+    }
+    select {
+      min-width: 220px;
+      cursor: pointer;
+    }
+    button {
+      background-color: #1db954;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #17a44c;
     }
     ul {
       list-style: none;
       padding: 0;
-      max-width: 600px;
+      max-width: 480px;
       margin: 0 auto;
       text-align: left;
     }
@@ -27,37 +51,67 @@
       margin: 1rem 0;
       background: #222;
       padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.5);
     }
-    a {
-      color: #1db954;
-      text-decoration: none;
+    iframe {
+      border-radius: 12px;
+      width: 100%;
+      height: 80px;
+      border: none;
+      margin-top: 0.5rem;
+    }
+    .error {
+      color: #ff5555;
+      margin: 1rem 0;
       font-weight: bold;
     }
-    a:hover {
-      text-decoration: underline;
-    }
-    p.description {
-      font-size: 0.9rem;
-      color: #ccc;
+    .mood-header {
+      font-size: 1.5rem;
+      margin: 1rem 0 2rem;
     }
   </style>
 </head>
 <body>
-  <h1>Twój nastrój: {{ mood|capitalize }} {{ emoji }}</h1>
+  <h1>Moodify 🎵</h1>
 
-  <ul>
-    {% for song in recommendations %}
-      <li>
-        <strong>{{ song.artist }}</strong> — {{ song.name }}<br />
-        <p class="description">{{ song.description }}</p>
-        <a href="{{ song.youtube }}" target="_blank">▶️ Odsłuchaj</a>
-      </li>
-    {% endfor %}
-  </ul>
+  <form method="POST" action="{{ url_for('mood') }}">
+    <select name="mood" required>
+      <option value="" disabled {% if not mood %}selected{% endif %}>-- Wybierz nastrój --</option>
+      {% for key, value in moods.items() %}
+        <option value="{{ key }}" {% if mood == key %}selected{% endif %}>{{ key|capitalize }} {{ value['emoji'] }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">Pokaż rekomendacje</button>
+  </form>
+
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+
+  {% if mood %}
+    <div class="mood-header">
+      Twój nastrój: {{ mood|capitalize }} {{ moods[mood]['emoji'] }}
+    </div>
+
+    {% if recommendations %}
+      <ul>
+        {% for song in recommendations %}
+          <li>
+            <strong>{{ song.artist }}</strong> – {{ song.name }}<br>
+            <em>{{ song.description }}</em>
+            <iframe src="{{ song.spotify }}" allow="encrypted-media" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Brak rekomendacji dla tego nastroju.</p>
+    {% endif %}
+  {% endif %}
+
 </body>
 </html>
+
 
 
 
