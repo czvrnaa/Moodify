@@ -2,98 +2,159 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>Moodify - Rekomendacje dla {{ mood.capitalize() }}</title>
+  <title>Moodify - Wybierz nastrój</title>
   <style>
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
     body {
-      background-color: #121212;
-      color: #eee;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      padding: 2rem;
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 0 20px 40px;
+      background: linear-gradient(-45deg, #6a11cb, #2575fc, #1ee3cf, #f72585);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: #222;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
     }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+    h1, h2 {
+      text-align: center;
+      color: white;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.4);
     }
-    h2 {
-      margin-top: 0;
-      margin-bottom: 2rem;
+    .subtitle {
+      text-align: center;
+      font-size: 1.3rem;
+      color: #f0e130;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      margin-top: -10px;
+      margin-bottom: 30px;
       font-weight: 600;
+      font-style: italic;
+    }
+    form {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 35px;
+    }
+    button {
+      background-color: rgba(255,255,255,0.85);
+      border: none;
+      padding: 14px 28px;
+      font-size: 18px;
+      color: #333;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      font-weight: 600;
+      user-select: none;
+    }
+    button:hover {
+      background-color: #ffffff;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      color: #007bff;
+    }
+    button:active {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    }
+    button span.emoji {
+      font-size: 22px;
+    }
+    button.selected {
+      background-color: #007bff;
+      color: white;
+      box-shadow: 0 8px 20px rgba(0,123,255,0.6);
+      cursor: default;
+      transform: none;
     }
     ul {
       list-style: none;
-      padding: 0;
-      max-width: 600px;
-      width: 100%;
+      padding-left: 0;
+      max-width: 650px;
+      margin: 0 auto;
     }
     li {
-      background: #222;
-      margin-bottom: 1rem;
-      padding: 1rem 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.7);
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
+      background: white;
+      margin-bottom: 14px;
+      padding: 18px 22px;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      transition: box-shadow 0.3s ease;
     }
-    li strong {
-      font-size: 1.2rem;
-      color: #1db954;
+    li:hover {
+      box-shadow: 0 10px 28px rgba(0,0,0,0.18);
     }
-    li a {
-      color: #1db954;
-      font-weight: 600;
+    a {
+      color: #007bff;
       text-decoration: none;
-      align-self: flex-start;
-      margin-top: 0.5rem;
-      transition: text-decoration 0.2s ease;
+      font-weight: 700;
+      transition: color 0.2s ease;
     }
-    li a:hover {
+    a:hover {
       text-decoration: underline;
+      color: #0056b3;
     }
     .description {
       font-style: italic;
-      color: #ccc;
-      font-size: 0.9rem;
+      color: #555;
+      margin-top: 8px;
+      font-size: 0.95em;
+      line-height: 1.3;
     }
-    button.back-btn {
-      margin-top: 2rem;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      background-color: #1db954;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    button.back-btn:hover {
-      background-color: #17a44c;
+    .error {
+      color: #ff4444;
+      font-weight: 700;
+      text-align: center;
+      margin-top: 22px;
+      font-size: 1.1em;
+      text-shadow: 0 1px 2px rgba(255,0,0,0.3);
     }
   </style>
 </head>
 <body>
-  <h1>Moodify 🎵</h1>
-  <h2>Twój nastrój: {{ mood.capitalize() }} {{ emoji }}</h2>
+  <h1>Wybierz nastrój <span class="emoji">{{ emoji }}</span></h1>
+  <p class="subtitle">Nastroje mówią, muzyka odpowiada 🎶💫</p>
 
-  <ul>
-    {% for song in recommendations %}
-      <li>
-        <strong>{{ song.artist }}</strong> - {{ song.name }}
-        <div class="description">{{ song.description }}</div>
-        <a href="{{ song.youtube }}" target="_blank" rel="noopener noreferrer" aria-label="Odsłuchaj {{ song.name }} od {{ song.artist }}">▶️ Odsłuchaj</a>
-      </li>
+  <form method="POST" action="{{ url_for('mood') }}">
+    {% for key, val in moods.items() %}
+      <button type="submit" name="mood" value="{{ key }}" 
+              {% if mood == key %}class="selected"{% endif %}>
+        <span class="emoji">{{ val.emoji }}</span> {{ key.capitalize() }}
+      </button>
     {% endfor %}
-  </ul>
-
-  <form action="{{ url_for('mood') }}" method="GET">
-    <button class="back-btn" type="submit">Wybierz inny nastrój</button>
   </form>
+
+  {% if mood %}
+    <h2>Rekomendacje dla nastroju: "{{ mood.capitalize() }}" <span class="emoji">{{ emoji }}</span></h2>
+    <ul>
+      {% for song in recommendations %}
+        <li>
+          <strong>{{ song.artist }}</strong> – {{ song.name }}
+          <div class="description">{{ song.description }}</div>
+          <a href="{{ song.youtube }}" target="_blank" rel="noopener noreferrer">Posłuchaj</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if error %}
+    <p class="error">{{ error }}</p>
+  {% endif %}
 </body>
 </html>
+
+
 
 

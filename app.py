@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
@@ -31,7 +30,7 @@ songs_by_mood = {
     "zrelaksowany": [
         {"artist": "Pink Floyd", "name": "A Pillow of Winds", "youtube": "https://www.youtube.com/watch?v=zOyk5bJt2qw", "description": "Spokojna, senna ballada z akustycznym klimatem."},
         {"artist": "Daft Punk", "name": "Make Love", "youtube": "https://www.youtube.com/watch?v=w8JrTg0s4ms", "description": "Delikatny, instrumentalny utwór idealny do relaksu."},
-        {"artist": "Radiohead", "name": "Codex", "youtube": "https://www.youtube.com/watch?v=pAwR6w2TgxY", "description": "Hipnotyzujący, cichy utwór z albumu *The King of Limbs*."},
+        {"artist": "Radiohead", "name": "Codex", "youtube": "https://www.youtube.com/watch?v=pAwR6w2TgxY", "description": "Hipnotyzujący, cichy utwór z albumu The King of Limbs."},
     ],
     "zly": [
         {"artist": "Guns N' Roses", "name": "Pretty Tied Up", "youtube": "https://www.youtube.com/watch?v=U_OavcNOMRA", "description": "Brudny riff i buntowniczy tekst – idealny na frustrację."},
@@ -56,11 +55,15 @@ def mood():
                 emoji=mood_settings[selected_mood]["emoji"],
                 recommendations=songs_by_mood[selected_mood]
             )
-    return render_template("index.html", moods=mood_settings)
+        else:
+            return render_template("mood.html", mood=None, emoji="", recommendations=[], error="Niepoprawny nastrój!")
+    # GET - wyświetl wybór nastroju
+    return render_template("mood.html", moods=mood_settings, mood=None, emoji="", recommendations=[], error=None)
 
-import os
 
 if __name__ == "__main__":
+    import os
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=port, debug=True)
+
 
