@@ -2,158 +2,65 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>Moodify - Wybierz nastrój</title>
+  <title>Moodify - Rekomendacje</title>
   <style>
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      max-width: 700px;
-      margin: 30px auto;
-      padding: 0 20px 40px;
-      background: linear-gradient(-45deg, #6a11cb, #2575fc, #1ee3cf, #f72585);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-      color: #222;
-      border-radius: 12px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-    }
-    h1, h2 {
+      background-color: #121212;
+      color: #eee;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      padding: 2rem;
       text-align: center;
-      color: white;
-      text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+      min-height: 100vh;
+      margin: 0;
     }
-    .subtitle {
-      text-align: center;
-      font-size: 1.3rem;
-      color: #f0e130;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-      margin-top: -10px;
-      margin-bottom: 30px;
-      font-weight: 600;
-      font-style: italic;
-    }
-    form {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 35px;
-    }
-    button {
-      background-color: rgba(255,255,255,0.85);
-      border: none;
-      padding: 14px 28px;
-      font-size: 18px;
-      color: #333;
-      border-radius: 10px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-      font-weight: 600;
-      user-select: none;
-    }
-    button:hover {
-      background-color: #ffffff;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-      color: #007bff;
-    }
-    button:active {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-    }
-    button span.emoji {
-      font-size: 22px;
-    }
-    button.selected {
-      background-color: #007bff;
-      color: white;
-      box-shadow: 0 8px 20px rgba(0,123,255,0.6);
-      cursor: default;
-      transform: none;
+    h1 {
+      margin-bottom: 1rem;
     }
     ul {
       list-style: none;
-      padding-left: 0;
-      max-width: 650px;
+      padding: 0;
+      max-width: 600px;
       margin: 0 auto;
+      text-align: left;
     }
     li {
-      background: white;
-      margin-bottom: 14px;
-      padding: 18px 22px;
-      border-radius: 14px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-      transition: box-shadow 0.3s ease;
-    }
-    li:hover {
-      box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+      margin: 1rem 0;
+      background: #222;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
     }
     a {
-      color: #007bff;
+      color: #1db954;
       text-decoration: none;
-      font-weight: 700;
-      transition: color 0.2s ease;
+      font-weight: bold;
     }
     a:hover {
       text-decoration: underline;
-      color: #0056b3;
     }
-    .description {
-      font-style: italic;
-      color: #555;
-      margin-top: 8px;
-      font-size: 0.95em;
-      line-height: 1.3;
-    }
-    .error {
-      color: #ff4444;
-      font-weight: 700;
-      text-align: center;
-      margin-top: 22px;
-      font-size: 1.1em;
-      text-shadow: 0 1px 2px rgba(255,0,0,0.3);
+    p.description {
+      font-size: 0.9rem;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
-  <h1>Wybierz nastrój <span class="emoji">{{ emoji }}</span></h1>
-  <p class="subtitle">Nastroje mówią, muzyka odpowiada 🎶💫</p>
+  <h1>Twój nastrój: {{ mood|capitalize }} {{ emoji }}</h1>
 
-  <form method="POST" action="{{ url_for('mood') }}">
-    {% for key, val in moods.items() %}
-      <button type="submit" name="mood" value="{{ key }}" 
-              {% if mood == key %}class="selected"{% endif %}>
-        <span class="emoji">{{ val.emoji }}</span> {{ key.capitalize() }}
-      </button>
+  <ul>
+    {% for song in recommendations %}
+      <li>
+        <strong>{{ song.artist }}</strong> — {{ song.name }}<br />
+        <p class="description">{{ song.description }}</p>
+        <a href="{{ song.youtube }}" target="_blank">▶️ Odsłuchaj</a>
+      </li>
     {% endfor %}
-  </form>
-
-  {% if mood %}
-    <h2>Rekomendacje dla nastroju: "{{ mood.capitalize() }}" <span class="emoji">{{ emoji }}</span></h2>
-    <ul>
-      {% for song in recommendations %}
-        <li>
-          <strong>{{ song.artist }}</strong> – {{ song.name }}
-          <div class="description">{{ song.description }}</div>
-          <a href="{{ song.youtube }}" target="_blank" rel="noopener noreferrer">Posłuchaj</a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-
-  {% if error %}
-    <p class="error">{{ error }}</p>
-  {% endif %}
+  </ul>
 </body>
 </html>
+
+
+
 
 
 
