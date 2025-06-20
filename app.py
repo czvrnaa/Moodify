@@ -19,7 +19,7 @@ songs_by_mood = {
     "smutny": [
         {"artist": "Radiohead", "name": "Exit Music (For a Film)", "spotify": "https://open.spotify.com/embed/track/0z1o5L7HJx562xZSATcIpY", "description": "Atmosferyczny utwór o odosobnieniu i emocjonalnym zniknięciu."},
         {"artist": "Myslovitz", "name": "Długość dźwięku samotności", "spotify": "https://open.spotify.com/embed/track/5ytkHKps6RVVDFZwAqVDCB", "description": "Refleksyjny i melancholijny utwór o życiu i samotności."},
-        {"artist": "Pink Floyd", "name": "The Final Cut", "spotify": "https://open.spotify.com/embed/track/1yMenUMOx7BpfTDuVQs99y", "description": "Pełna bólu i emocji ballada o wojnie i stracie."},
+        {"artist": "Jeff Buckley", "name": "Lover, You Should've Come Over", "spotify": "https://open.spotify.com/embed/track/3f5p1VlxWR3xT6f3sbH", "description": "Pełna emocjonalnego napięcia ballada o tęsknocie, żalu i niespełnionej miłości."},
     ],
     "energetyczny": [
         {"artist": "Metallica", "name": "Whiplash", "spotify": "https://open.spotify.com/embed/track/38fIaph07Kd8ZIN6l17ZJs", "description": "Szybki, bezkompromisowy utwór z pierwszych lat zespołu."},
@@ -27,7 +27,7 @@ songs_by_mood = {
         {"artist": "System of a Down", "name": "Chop Suey!", "spotify": "https://open.spotify.com/embed/track/2DlHlPMa4M17kufBvI2lEN", "description": "Eksperymentalny, szybki i absurdalny – idealny na wyładowanie energii."},
     ],
     "zrelaksowany": [
-        {"artist": "Pink Floyd", "name": "A Pillow of Winds", "spotify": "https://open.spotify.com/embed/track/3ipM1VYQ6S3MuK8U2RrG4K", "description": "Spokojna, akustyczna ballada z subtelnym klimatem."},
+        {"artist": "Gorrilaz", "name": "On Melancholy Hill", "spotify": "https://open.spotify.com/embed/track/0q6LuUqGLUiCPP1cbdwFs3?si=00d039395373418d", "description": "Ten utwór łączy subtelny synth-pop z melancholijnym klimatem, tworząc poczucie spokoju i zadumy."},
         {"artist": "Daft Punk", "name": "Make Love", "spotify": "https://open.spotify.com/embed/track/4ABWPP59ItFKykdaDF09K5", "description": "Delikatny, instrumentalny utwór idealny do relaksu."},
         {"artist": "Radiohead", "name": "Codex", "spotify": "https://open.spotify.com/embed/track/6ttYF5VadzTssGV2i1Q08T", "description": "Hipnotyzujący, cichy utwór z albumu *The King of Limbs*."},
     ],
