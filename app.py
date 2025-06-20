@@ -19,7 +19,7 @@ songs_by_mood = {
     "smutny": [
         {"artist": "Radiohead", "name": "Exit Music (For a Film)", "spotify": "https://open.spotify.com/embed/track/0z1o5L7HJx562xZSATcIpY", "description": "Atmosferyczny utwór o odosobnieniu i emocjonalnym zniknięciu."},
         {"artist": "Myslovitz", "name": "Długość dźwięku samotności", "spotify": "https://open.spotify.com/embed/track/5ytkHKps6RVVDFZwAqVDCB", "description": "Refleksyjny i melancholijny utwór o życiu i samotności."},
-        {"artist": "Arctic Monkeys", "name": "No. 1 Party Anthem", "spotify": "https://open.spotify.com/embed/track/6ThN3o7fYvypCrWoTzrHlb", "description": "Nastrojowa i pełna tęsknoty ballada o samotności w tłumie."},
+        {"artist": "Arctic Monkeys", "name": "No. 1 Party Anthem", "spotify": "https://open.spotify.com/embed/track/5TTGoX70AFrTvuEtqHK37S?si=b6c6abb90a944aa2", "description": "Nastrojowa i pełna tęsknoty ballada o samotności w tłumie."},
     ],
     "energetyczny": [
         {"artist": "Metallica", "name": "Whiplash", "spotify": "https://open.spotify.com/embed/track/38fIaph07Kd8ZIN6l17ZJs", "description": "Szybki, bezkompromisowy utwór z pierwszych lat zespołu."},
