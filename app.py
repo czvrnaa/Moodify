@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request
-
 app = Flask(__name__)
 
 mood_settings = {
@@ -20,15 +19,15 @@ songs_by_mood = {
     "smutny": [
         {"artist": "Radiohead", "name": "Exit Music (For a Film)", "spotify": "https://open.spotify.com/embed/track/0z1o5L7HJx562xZSATcIpY", "description": "Atmosferyczny utwór o odosobnieniu i emocjonalnym zniknięciu."},
         {"artist": "Myslovitz", "name": "Długość dźwięku samotności", "spotify": "https://open.spotify.com/embed/track/5ytkHKps6RVVDFZwAqVDCB", "description": "Refleksyjny i melancholijny utwór o życiu i samotności."},
-        {"artist": "Pink Floyd", "name": "The Final Cut", "spotify": "https://open.spotify.com/embed/album/1yMenUMOx7BpfTDuVQs99y", "description": "Pełna bólu i emocji ballada o wojnie i stracie."},
+        {"artist": "Pink Floyd", "name": "The Final Cut", "spotify": "https://open.spotify.com/embed/track/1yMenUMOx7BpfTDuVQs99y", "description": "Pełna bólu i emocji ballada o wojnie i stracie."},
     ],
     "energetyczny": [
         {"artist": "Metallica", "name": "Whiplash", "spotify": "https://open.spotify.com/embed/track/38fIaph07Kd8ZIN6l17ZJs", "description": "Szybki, bezkompromisowy utwór z pierwszych lat zespołu."},
         {"artist": "Linkin Park", "name": "Figure.09", "spotify": "https://open.spotify.com/embed/track/0rPTPahzhGx9LSzI8XX5OM", "description": "Energetyczna mieszanka rocka i elektroniki z mocnym refrenem."},
-        {"artist": "System of a Down", "name": "Chop  Suey!", "spotify": "https://open.spotify.com/embed/track/2DlHlPMa4M17kufBvI2lEN", "description": "Eksperymentalny, szybki i absurdalny – idealny na wyładowanie energii."},
+        {"artist": "System of a Down", "name": "Chop Suey!", "spotify": "https://open.spotify.com/embed/track/2DlHlPMa4M17kufBvI2lEN", "description": "Eksperymentalny, szybki i absurdalny – idealny na wyładowanie energii."},
     ],
     "zrelaksowany": [
-     {"artist": "Pink Floyd", "name": "A Pillow of Winds", "spotify": "https://open.spotify.com/embed/track/3ipM1VYQ6S3MuK8U2RrG4K", "description": "Spokojna, akustyczna ballada z subtelnym klimatem, idealna do wieczornego wyciszenia."},
+        {"artist": "Pink Floyd", "name": "A Pillow of Winds", "spotify": "https://open.spotify.com/embed/track/3ipM1VYQ6S3MuK8U2RrG4K", "description": "Spokojna, akustyczna ballada z subtelnym klimatem."},
         {"artist": "Daft Punk", "name": "Make Love", "spotify": "https://open.spotify.com/embed/track/4ABWPP59ItFKykdaDF09K5", "description": "Delikatny, instrumentalny utwór idealny do relaksu."},
         {"artist": "Radiohead", "name": "Codex", "spotify": "https://open.spotify.com/embed/track/6ttYF5VadzTssGV2i1Q08T", "description": "Hipnotyzujący, cichy utwór z albumu *The King of Limbs*."},
     ],
@@ -49,35 +48,16 @@ def mood():
     if request.method == "POST":
         selected_mood = request.form.get("mood")
         if selected_mood in songs_by_mood:
-            return render_template(
-                "index.html",
-                moods=mood_settings,
-                mood=selected_mood,
-                recommendations=songs_by_mood[selected_mood],
-                error=None
-            )
+            return render_template("index.html", mood=selected_mood, moods=mood_settings, recommendations=songs_by_mood[selected_mood])
         else:
-            return render_template(
-                "index.html",
-                moods=mood_settings,
-                mood=None,
-                recommendations=[],
-                error="Niepoprawny nastrój!"
-            )
-    # GET
-    return render_template(
-        "mood.html",
-        moods=mood_settings,
-        mood=None,
-        recommendations=[],
-        error=None
-    )
-
+            return render_template("index.html", moods=mood_settings, error="Nieznany nastrój.")
+    return render_template("index.html", moods=mood_settings)
 
 if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    app.run(host="0.0.0.0", port=port)
+
 
 
 
