@@ -28,7 +28,7 @@ songs_by_mood = {
         {"artist": "System of a Down", "name": "Chop  Suey!", "spotify": "https://open.spotify.com/embed/track/2DlHlPMa4M17kufBvI2lEN", "description": "Eksperymentalny, szybki i absurdalny – idealny na wyładowanie energii."},
     ],
     "zrelaksowany": [
-     {"artist": "Pink Floyd", "name": "Us and Them", "spotify": "https://open.spotify.com/embed/track/3TO7bbrUKrOSPGRTB5MeCz", "description": "Spokojna, senna ballada z niesamowitym klimatem."},
+     {"artist": "Pink Floyd", "name": "A Pillow of Winds", "spotify": "https://open.spotify.com/embed/track/3ipM1VYQ6S3MuK8U2RrG4K", "description": "Spokojna, akustyczna ballada z subtelnym klimatem, idealna do wieczornego wyciszenia."},
         {"artist": "Daft Punk", "name": "Make Love", "spotify": "https://open.spotify.com/embed/track/4ABWPP59ItFKykdaDF09K5", "description": "Delikatny, instrumentalny utwór idealny do relaksu."},
         {"artist": "Radiohead", "name": "Codex", "spotify": "https://open.spotify.com/embed/track/6ttYF5VadzTssGV2i1Q08T", "description": "Hipnotyzujący, cichy utwór z albumu *The King of Limbs*."},
     ],
@@ -50,7 +50,7 @@ def mood():
         selected_mood = request.form.get("mood")
         if selected_mood in songs_by_mood:
             return render_template(
-                "mood.html",
+                "index.html",
                 moods=mood_settings,
                 mood=selected_mood,
                 recommendations=songs_by_mood[selected_mood],
@@ -58,7 +58,7 @@ def mood():
             )
         else:
             return render_template(
-                "mood.html",
+                "index.html",
                 moods=mood_settings,
                 mood=None,
                 recommendations=[],
