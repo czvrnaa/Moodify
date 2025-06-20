@@ -43,20 +43,28 @@ songs_by_mood = {
     ],
 }
 
-@app.route("/", methods=["GET", "POST"])
-def mood():
-    if request.method == "POST":
-        selected_mood = request.form.get("mood")
-        if selected_mood in songs_by_mood:
-            return render_template("index.html", mood=selected_mood, moods=mood_settings, recommendations=songs_by_mood[selected_mood])
-        else:
-            return render_template("index.html", moods=mood_settings, error="Nieznany nastrój.")
+@app.route("/", methods=["GET"])
+def index():
     return render_template("index.html", moods=mood_settings)
+
+@app.route("/mood", methods=["POST"])
+def mood():
+    selected_mood = request.form.get("mood")
+    print("Odebrano nastrój:", selected_mood)
+    if selected_mood in songs_by_mood:
+        return render_template(
+            "mood.html",
+            mood=selected_mood,
+            moods=mood_settings,
+            recommendations=songs_by_mood[selected_mood]
+        )
+    return render_template("index.html", moods=mood_settings, error="Niepoprawny nastrój.")
 
 if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
 
