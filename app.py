@@ -27,7 +27,7 @@ songs_by_mood = {
         {"artist": "System of a Down", "name": "Chop Suey!", "spotify": "https://open.spotify.com/embed/track/2DlHlPMa4M17kufBvI2lEN", "description": "Eksperymentalny, szybki i absurdalny – idealny na wyładowanie energii."},
     ],
     "zrelaksowany": [
-        {"artist": "Gorrilaz", "name": "On Melancholy Hill", "spotify": "https://open.spotify.com/embed/track/0q6LuUqGLUiCPP1cbdwFs3?si=00d039395373418d", "description": "Ten utwór łączy subtelny synth-pop z melancholijnym klimatem, tworząc poczucie spokoju i zadumy."},
+        {"artist": "Gorillaz", "name": "On Melancholy Hill", "spotify": "https://open.spotify.com/embed/track/0q6LuUqGLUiCPP1cbdwFs3?si=00d039395373418d", "description": "Ten utwór łączy subtelny synth-pop z melancholijnym klimatem, tworząc poczucie spokoju i zadumy."},
         {"artist": "Daft Punk", "name": "Make Love", "spotify": "https://open.spotify.com/embed/track/4ABWPP59ItFKykdaDF09K5", "description": "Delikatny, instrumentalny utwór idealny do relaksu."},
         {"artist": "Radiohead", "name": "Codex", "spotify": "https://open.spotify.com/embed/track/6ttYF5VadzTssGV2i1Q08T", "description": "Hipnotyzujący, cichy utwór z albumu *The King of Limbs*."},
     ],
